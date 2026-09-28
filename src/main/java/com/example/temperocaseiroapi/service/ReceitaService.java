@@ -23,12 +23,17 @@ public class ReceitaService {
         return receitaRepository.findAll();
     }
 
+    // Listar somente receitas aprovadas
+    public List<Receita> listarAprovadas() {
+        return receitaRepository.findByAprovadaTrue();
+    }
+
     // Buscar por ID
     public Receita buscarPorId(Integer id) {
         return receitaRepository.findById(id).orElse(null);
     }
 
-    // Excluir
+    // Excluir receita
     public void excluir(Integer id) {
         receitaRepository.deleteById(id);
     }

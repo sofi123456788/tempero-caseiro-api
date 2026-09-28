@@ -16,21 +16,44 @@ public class ReceitaController {
     private ReceitaService receitaService;
 
     // Adicionar receita
+    // Toda receita nova deve começar como "não aprovada".
     @PostMapping
     public Receita salvar(@RequestBody Receita receita) {
+
+        // Garante que uma receita nova fique aguardando aprovação.
+        receita.setAprovada(false);
+
         return receitaService.salvar(receita);
     }
 
-    // Listar receitas
+    // Listar somente receitas aprovadas
+    // O aplicativo Android vai receber apenas as receitas que foram aprovadas.
     @GetMapping
     public List<Receita> listar() {
-        return receitaService.listarTodas();
+        return receitaService.listarAprovadas();
     }
 
     // Buscar por ID
     @GetMapping("/{id}")
     public Receita buscar(@PathVariable Integer id) {
         return receitaService.buscarPorId(id);
+    }
+
+    // Aprovar uma receita
+    // Exemplo: PUT /receitas/5/aprovar
+    @PutMapping("/{id}/aprovar")
+    public Receita aprovar(@PathVariable Integer id) {
+
+        Receita receita = receitaService.buscarPorId(id);
+
+        if (receita == null) {
+            return null;
+        }
+
+        // Altera a receita para aprovada.
+        receita.setAprovada(true);
+
+        return receitaService.salvar(receita);
     }
 
     // Excluir receita

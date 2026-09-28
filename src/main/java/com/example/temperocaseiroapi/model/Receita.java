@@ -38,6 +38,12 @@ public class Receita {
     // Guarda o ID do usuário que cadastrou a receita.
     private Integer usuarioId;
 
+    @Column(nullable = false)
+    // Indica se a receita foi aprovada.
+    // false = aguardando aprovação
+    // true = receita aprovada
+    private Boolean aprovada = false;
+
     // Construtor vazio obrigatório para o JPA.
     public Receita() {
     }
@@ -129,5 +135,13 @@ public class Receita {
     // Define o ID do usuário que cadastrou a receita.
     public void setUsuarioId(Integer usuarioId) {
         this.usuarioId = usuarioId;
+    }
+
+    public Boolean getAprovada() {
+    return aprovada;
+    }
+
+    public void setAprovada(Boolean aprovada) {
+        this.aprovada = aprovada;
     }
 }

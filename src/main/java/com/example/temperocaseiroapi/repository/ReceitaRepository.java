@@ -4,6 +4,8 @@ import com.example.temperocaseiroapi.model.Receita;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 //ELE QUE CONVERSA COM O BANCO DE DADOS
 
 /*
@@ -24,5 +26,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ReceitaRepository extends JpaRepository<Receita, Integer> {
+
+    // Busca somente as receitas que já foram aprovadas.
+    List<Receita> findByAprovadaTrue();
 
 }
